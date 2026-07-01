@@ -5,9 +5,9 @@ const Expense = require("../models/expense.model");
 // @access  Private
 const createExpense = async (req, res) => {
   try {
-    const { title, amount, category, date, notes } = req.body;
+    const { type,title, amount, category, date, notes } = req.body;
 
-    if (!title || amount === undefined || !category) {
+    if (!title || amount === undefined || !type || !category) {
       return res.status(400).json({
         success: false,
         message: "Title, amount, and category are required",
@@ -33,6 +33,7 @@ const createExpense = async (req, res) => {
     }
 
     const expense = await Expense.create({
+      type,
       title,
       amount,
       category,
@@ -82,7 +83,7 @@ const getExpenses = async (req, res) => {
         $gte: startDate,
         $lt: endDate,
       };
-    }
+    } 
 
     const expenses = await Expense.find(query).sort({
       date: -1,
@@ -107,7 +108,7 @@ const getExpenses = async (req, res) => {
 // @access  Private
 const updateExpense = async (req, res) => {
   try {
-    const { title, amount, category, date, notes } = req.body;
+    const { type, title, amount, category, date, notes } = req.body;
     const expense = await Expense.findById(req.params.id);
 
     if (!expense) {
@@ -172,6 +173,15 @@ const updateExpense = async (req, res) => {
 
     if (notes !== undefined) {
       expense.notes = notes;
+    }
+    if (type !== undefined) {
+      if (!["Expense", "Income"].includes(type)) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid type. Must be either 'Expense' or 'Income'",
+        });
+      }
+      expense.type = type;
     }
 
     const updatedExpense = await expense.save();

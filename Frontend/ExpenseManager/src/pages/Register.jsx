@@ -1,8 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { registerUser } from "../services/authService";
+import ThemeToggle from "../components/ThemeToggle";
 
-export default function Register() {
+export default function Register({darkMode , setDarkMode}) {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
@@ -52,8 +53,24 @@ const handleSubmit = async (e) => {
 };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-100 px-4">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
+    <div className="  relative 
+    min-h-screen
+
+  bg-slate-100
+  dark:bg-slate-900
+
+  flex
+  items-center
+  justify-center">
+      {/* theme toggle at top right*/}
+      <div className="absolute top-4 right-4">
+      <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
+      </div>
+      <div className="w-full max-w-md bg-white
+  dark:bg-slate-800
+
+  text-black
+  dark:text-white rounded-2xl shadow-lg p-8">
         <h1 className="text-3xl font-bold text-center mb-2">
           Create Account
         </h1>

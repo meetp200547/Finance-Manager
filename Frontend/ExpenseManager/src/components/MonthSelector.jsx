@@ -26,7 +26,7 @@ function MonthSelector({
     <div className="flex items-center justify-center gap-6 my-6">
       <button
         onClick={goToPreviousMonth}
-        className="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300"
+        className="px-4 py-2 rounded-lg bg-gray-200 dark:bg-slate-700 hover:bg-gray-300"
       >
         ←
       </button>
@@ -43,7 +43,7 @@ function MonthSelector({
 
       <button
         onClick={goToNextMonth}
-        className="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300"
+        className="px-4 py-2 rounded-lg bg-gray-200 dark:bg-slate-700 hover:bg-gray-300"
       >
         →
       </button>

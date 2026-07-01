@@ -2,6 +2,11 @@ const mongoose = require("mongoose");
 
 const expenseSchema = new mongoose.Schema(
   {
+    type: {
+      type: String,
+      required: true,
+      enum: ["Expense", "Income"],
+    },
     title: {
       type: String,
       required: true,
